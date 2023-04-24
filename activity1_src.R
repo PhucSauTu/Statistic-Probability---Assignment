@@ -3,7 +3,33 @@ library(ggplot2)
 library(skimr)
 library(Rmisc)
 
-  #Bộ dữ liệu 
+  #Bộ dữ liệu "Appliances energy prediction Data Set":
+        # Appliances: năng lượng tiêu thụ của vật dụng (Wh)
+        # lights    : năng lượng tiêu thụ cho chiếu sáng(Wh)
+        # T1        : nhiệt độ nhà bếp (Celcius)
+        # RH_1      : độ ẩm nhà bếp (%)
+        # T2        : nhiệt độ phòng khách (Celcius)
+        # RH_2      : độ ẩm phòng khách (%)
+        # T3        : nhiệt độ phòng giặt (Celcius)
+        # RH_3      : độ ẩm phòng giặt (%)
+        # T4        : nhiệt độ văn phòng (Celcius)
+        # RH_4      : độ ẩm văn phòng (%)
+        # T5        : nhiệt độ phòng tắm (Celcius)
+        # RH_5      : độ ẩm phòng tắm (%)
+        # T6        : nhiệt độ ngoài trời (Celcius)
+        # RH_6      : độ ẩm ngoài trời (%)
+        # T7        : nhiệt độ phòng ủi (Celcius)
+        # RH_7      : độ ẩm phòng ủi (%)
+        # T8        : nhiệt độ phòng ngủ 1 (Celcius)
+        # RH_8      : độ ẩm phòng ngủ 1 (%)
+        # T9        : nhiệt độ phòng ngủ 2 (Celcius)
+        # RH_9      : độ ẩm phòng ngủ 2 (%)
+        # T_out     : nhiệt độ trạm Chievres (Celcius)
+        # Press_mm_hg: khí áp trạm Chievres (mmHg)
+        # RH_out    : độ ẩm trạm Chievres (%)
+        # Windspeed : tốc độ gió trạm Chievres (m/s)
+        # Visibility: tầm nhìn (km)
+        # Tdewpoint : điểm sương (Celcius)
 
   # a) Tìm hiểu thông tin về tập dữ liệu
   # b) Đọc dữ liệu và đổi tên các cột
@@ -260,68 +286,207 @@ view5<-multiplot(wdsPlot, T0Plot,
                  vsbPlot, tdpPlot,
                  layout = layout)
 
-#Box Plot & Scatter Plot
-cementPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Cement`, y = `Concrete compressive strength`), color = "red", size = 1) +
-  scale_x_continuous(name = paste("Xi măng (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo xi măng"))))
-#show(cementPlot)
+# Scatter Plot
+lgtPlot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `lights`, y = `Appliances`), color = "black", size = 1) +
+  scale_x_continuous(name = "lights (Wh)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ cho chiếu sáng"))))
+#show(lgtPlot)
 
-bfsPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Blast Furnace Slag`, y = `Concrete compressive strength`), color = "blue", size = 1) +
-  scale_x_continuous(name = paste("Xỉ lò cao (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo xỉ lò cao"))))
-#show(bfsPlot)
+T1Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T1`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature1 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 1"))))
+#show(T1Plot)
 
-flyashPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Fly Ash`, y = `Concrete compressive strength`), color = "red", size = 1) +
-  scale_x_continuous(name = paste("Tro bay (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo tro bay"))))
-#show(flyashPlot)
+RH1Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_1`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity1 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 1"))))
+#show(RH1Plot)
 
-waterPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Water`, y = `Concrete compressive strength`), color = "blue", size = 1) +
-  scale_x_continuous(name = paste("Nước (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo nước"))))
-#show(waterPlot)
+T2Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T2`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature2 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 2"))))
+#show(T2Plot)
 
-superplasticizerPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Superplasticizer`, y = `Concrete compressive strength`), color = "red", size = 1) +
-  scale_x_continuous(name = paste("Phụ gia siêu dẻo (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo phụ gia siêu dẻo"))))
-#show(superplasticizerPlot)
+RH2Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_2`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity2 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 2"))))
+#show(RH2Plot)
 
-caPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Coarse Aggregate`, y = `Concrete compressive strength`), color = "blue", size = 1) +
-  scale_x_continuous(name = paste("Đá (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo đá"))))
-#show(caPlot)
+T3Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T3`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature3 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 3"))))
+#show(T3Plot)
 
-faPlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Fine Aggregate`, y = `Concrete compressive strength`), color = "red", size = 1) +
-  scale_x_continuous(name = paste("Cát (",expression(kg/m^3),")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo cát"))))
-#show(faPlot)
+RH3Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_3`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity3 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 3"))))
+#show(RH3Plot)
 
-agePlot<-ggplot(data = df) +
-  geom_point(mapping = aes(x = `Age`, y = `Concrete compressive strength`), color = "blue", size = 1) +
-  scale_x_continuous(name = paste("Tuổi (","ngày",")", sep = "")) +
-  scale_y_continuous(name = paste("Cường độ nén bê tông (","MPA",")",sep = "")) +
-  ggtitle(substitute(paste(bold("Biểu đồ phân tán cường độ nén bê tông theo tuổi"))))
-#show(agePlot)
+layout<-matrix(c(1:6), nrow = 3, byrow = TRUE)
+view5<-multiplot(T1Plot, RH1Plot,
+                 T2Plot, RH2Plot,
+                 T3Plot, RH3Plot,
+                 layout = layout)
 
-layout<-matrix(c(1:8), nrow = 4, byrow = TRUE)
-multiplot(cementPlot, bfsPlot, flyashPlot, waterPlot,
-          superplasticizerPlot, caPlot, faPlot, agePlot
-          ,layout = layout)
-  
-  # d) Tính ma trận hệ số tương quan
+T4Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T4`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature4 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 4"))))
+#show(T4Plot)
 
-cor(df, method = "pearson")
+RH4Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_4`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity4 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 4"))))
+#show(RH4Plot)
+
+T5Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T5`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature5 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 5"))))
+#show(T5Plot)
+
+RH5Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_5`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity5 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 5"))))
+#show(RH5Plot)
+
+T6Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T6`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature6 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 6"))))
+#show(T6Plot)
+
+RH6Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_6`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity6 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 6"))))
+#show(RH6Plot)
+
+layout<-matrix(c(1:6), nrow = 3, byrow = TRUE)
+view5<-multiplot(T4Plot, RH4Plot,
+                 T5Plot, RH5Plot,
+                 T6Plot, RH6Plot,
+                 layout = layout)
+
+T7Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T7`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature7 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 7"))))
+#show(T7Plot)
+
+RH7Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_7`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity7 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 7"))))
+#show(RH7Plot)
+
+T8Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T8`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature8 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiêt độ 8"))))
+#show(T8Plot)
+
+RH8Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_8`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity8 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 8"))))
+#show(RH8Plot)
+
+T9Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T9`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature9 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ 9"))))
+#show(T9Plot)
+
+RH9Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_9`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity9 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm 9"))))
+#show(RH9Plot)
+
+layout<-matrix(c(1:6), nrow = 3, byrow = TRUE)
+view5<-multiplot(T7Plot, RH7Plot,
+                 T8Plot, RH8Plot,
+                 T9Plot, RH9Plot,
+                 layout = layout)
+
+T0Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `T_out`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temporature0 (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo nhiệt độ trạm"))))
+#show(T0Plot)
+
+RH0Plot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `RH_out`, y = `Appliances`), color = "blue", size = 1) +
+  scale_x_continuous(name = "Rate of Humidity0 (%)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo độ ẩm trạm"))))
+#show(RH0Plot)
+
+pmhPlot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `Press_mm_hg`, y = `Appliances`), color = "black", size = 1) +
+  scale_x_continuous(name = "Pressure (mmHg)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lương tiêu thụ theo khí áp"))))
+#show(pmhPlot)
+
+wdsPlot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `Windspeed`, y = `Appliances`), color = "green", size = 1) +
+  scale_x_continuous(name = "Windspeed (m/s)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo tốc độ gió"))))
+#show(wdsPlot)
+
+vsbPlot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `Visibility`, y = `Appliances`), color = "black", size = 1) +
+  scale_x_continuous(name = "Visibility (km)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo tầm nhìn"))))
+#show(vsbPlot)
+
+tdpPlot<-ggplot(data = df) +
+  geom_point(mapping = aes(x = `Tdewpoint`, y = `Appliances`), color = "red", size = 1) +
+  scale_x_continuous(name = "Temperature (\u00B0C)") +
+  scale_y_continuous(name = "Appliances (Wh)") +
+  ggtitle(substitute(paste(bold("Biểu đồ phân tán năng lượng tiêu thụ theo điểm sương"))))
+#show(tdpPlot)
+
+layout<-matrix(c(1:6), nrow = 3, byrow = TRUE)
+view5<-multiplot(T0Plot, RH0Plot,
+                 pmhPlot, wdsPlot,
+                 vsbPlot, tdpPlot,
+                 layout = layout)
+
+
+
+
+
