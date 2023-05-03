@@ -40,7 +40,7 @@ filepath = "C:/Users/DELL/Documents/SP_Assignment/energydata_complete.csv"
     # Xoa cot date, rv1, rv2
 df<-read.csv(filepath, check.names = F)
 df<-df[c(-29,-28,-1)]
-
+head(df)
   # c) Tính trung bình, trung vị, đọ lệch chuẩn, min, max cho các biến
   #Option 1(default):
 summary(df)
@@ -485,6 +485,34 @@ view5<-multiplot(T0Plot, RH0Plot,
                  pmhPlot, wdsPlot,
                  vsbPlot, tdpPlot,
                  layout = layout)
+
+#too large 
+#pairs(~Appliances+lights+
+       #T1+RH_1+T2+RH_2+T3+RH_3+T4+RH_4+T5+RH_5+T6+RH_6+T7+RH_7+T8+RH_8+T9+RH_9+
+#       T_out+Press_mm_hg+RH_out+Windspeed+Visibility+Tdewpoint, data = df)
+
+  #e) linear regression
+model1<-lm(Appliances~lights+T1+RH_1+T2+RH_2+T3+RH_3+T4+RH_4+T5
+                      +RH_5+T6+RH_6+T7+RH_7+T8+RH_8+T9+RH_9
+                      +T_out+Press_mm_hg+RH_out+Windspeed+Tdewpoint
+                      , data = df)
+summary(model1)
+
+# loc bo p-value >0.05
+
+model2<-lm(Appliances~lights+RH_1+T2+RH_2+T3+RH_3+T4+T6+RH_6+RH_7
+                      +T8+RH_8+T9+RH_9+T_out+RH_out+Windspeed+Tdewpoint
+                      , data = df)
+summary(model2)
+
+anova(model1, model2)
+
+template<-par(mfrow=c(2,2))
+plot(model2)
+
+
+
+
 
 
 
